@@ -1,4 +1,4 @@
-# CONGIGURATION 
+# CONFIGURATION 
 DIRSRC=./src
 VBOSIMAGE=CentOS7-base.ova
 VMNAME=centos-
