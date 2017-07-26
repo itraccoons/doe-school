@@ -1,3 +1,7 @@
 - hosts: localhost
   roles:
     - role: geerlingguy.ntp
+    - role: geerlingguy.apache
+      apache_vhosts:
+        - {servername: "raccoon1.doe.com", documentroot: "/vagrant/www/raccoon1.doe.com"}
+      apache_remove_default_vhost: true
