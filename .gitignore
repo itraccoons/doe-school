@@ -1,1 +1,4 @@
 *.ova
+*.retry
+.vagrant/
+vagrant/ansible/roles/

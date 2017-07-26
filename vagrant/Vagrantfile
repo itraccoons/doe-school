@@ -1,0 +1,19 @@
+# vim: set ft=ruby ts=2 sw=2 et:
+# -*- mode: ruby -*-
+
+VAGRANT_API_VERSION = '2'
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.vm.define "web" do |_|
+    _.vm.box = "ubuntu/trusty64"
+    
+    _.vm.provision "ansible_local" do |ansible|
+      ansible.playbook = "ansible/playbook.yml"
+      ansible.galaxy_roles_path = 'ansible/roles/:../'
+      ansible.inventory_path = "ansible/inventory"
+      ansible.galaxy_role_file = 'ansible/requirements.yml'
+      ansible.limit = "all"
+      ansible.sudo = true
+    end
+  end
+end
+ 
