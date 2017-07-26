@@ -6,6 +6,11 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.define "web" do |_|
     _.vm.box = "ubuntu/trusty64"
     _.vm.network :forwarded_port, guest: 80, host: 8080
+    _.vm.provider "virtualbox" do |__|
+      __.memory = "512"
+      __.cpus = "1"
+    end
+    _.vm.provider.memory= "1024"
 
     _.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "ansible/playbook.yml"
