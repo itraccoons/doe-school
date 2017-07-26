@@ -10,7 +10,6 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       __.memory = "512"
       __.cpus = "1"
     end
-    _.vm.provider.memory= "1024"
 
     _.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "ansible/playbook.yml"
