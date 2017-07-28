@@ -1,0 +1,24 @@
+# vim: set ft=ruby ts=2 sw=2 et:
+# -*- mode: ruby -*-
+
+VAGRANT_API_VERSION = '2'
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.vm.define "gitlab-runner.vbox" do |_|
+    _.vm.box = "ubuntu/trusty64"
+#    _.vm.network :forwarded_port, guest: 80, host: 8080
+    _.vm.provider "virtualbox" do |__|
+      __.name = "gitlab-runner.docker.vagrant.vbox"
+      __.memory = "512"
+      __.cpus = "1"
+    end
+
+    _.vm.provision "docker" do |d|
+      d.run "gitlab-runner.container", 
+        image: "gitlab/gitlab-runner:latest",
+        args: "-v '/vagrant/gitlab-runner:/etc/gitlab-runner'"
+#after conteiner start run 
+#docker exec gitlab-runner.container gitlab-runner register --non-interactive --url https://gitlab.com --registration-token <TOKEN> --executor "shell"
+    end
+  end
+end
+ 
