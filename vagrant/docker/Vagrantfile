@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
         image: "gitlab/gitlab-runner:latest",
         args: "-v '/vagrant/gitlab-runner:/etc/gitlab-runner'"
 #after conteiner start run 
-#docker exec gitlab-runner.container gitlab-runner register --non-interactive --url https://gitlab.com --registration-token <TOKEN> --executor "shell"
+#docker exec gitlab-runner.container gitlab-runner register --non-interactive --url https://gitlab.com --registration-token <TOKEN> --executor \"shell\" --name \"runner-shell\" --tag-list \"DEPLOY\""
     end
   end
 end
