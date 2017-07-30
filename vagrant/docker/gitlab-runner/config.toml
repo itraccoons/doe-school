@@ -1,0 +1,9 @@
+concurrent = 1
+check_interval = 0
+
+[[runners]]
+  name = "runner-shell"
+  url = "https://gitlab.com"
+  token = "9d59d51f3e7fc49f93f40fce00833d"
+  executor = "shell"
+  [runners.cache]
