@@ -2,3 +2,4 @@
 *.retry
 .vagrant/
 vagrant/ansible/roles/
+id_rsa*
