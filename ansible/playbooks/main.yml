@@ -1,4 +1,5 @@
 ---
-- hosts: localhost
-  roles:
-    - role: gitntp
+- include: common/ntp.yml
+
+- hosts: servers
+  gather_facts: "yes"
