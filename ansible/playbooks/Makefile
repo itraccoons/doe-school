@@ -3,7 +3,7 @@
 BASE_DIR	:= $(shell cd .. && pwd)
 YL_CMD		:= $(shell which yamllint)
 YL_FILES	:= ./*.yml ./common/
-AP_CMD		:= ANSIBLE_HOST_KEY_CHECKING=False
+#AP_CMD		:= ANSIBLE_HOST_KEY_CHECKING=False
 AP_CMD		+= $(shell which ansible-playbook)
 AG_CMD		:= $(shell which ansible-galaxy)
 INVENTORY	:= ${BASE_DIR}/config/inventory
@@ -50,3 +50,7 @@ show-groups:		# Show ansible inventory
 
 ssh-keygen:
 	ssh-keygen -b 4029 -f ${BASE_DIR}/config/id_rsa
+
+ssh-copy-id:
+	# this is a stub, need to write proc: 1. walkthrough inventory 2. push pub key to host
+	ssh-copy-id -i ${BASE_DIR}/config/id_rsa.pub centos@10.0.1.5
