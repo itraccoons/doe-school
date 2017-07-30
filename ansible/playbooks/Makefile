@@ -5,7 +5,7 @@ YL_FILES	:= ./*.yml ./common/
 AP_CMD		:= ANSIBLE_HOST_KEY_CHECKING=False
 AP_CMD		+= $(shell which ansible-playbook)
 AG_CMD		:= $(shell which ansible-galaxy)
-INVENTORY	:= "$(shell pwd)/../config/hosts"
+INVENTORY	:= "$(shell pwd)/../config/inventory"
 ROLES_DIR	:= "./roles"
 ROLES		:= "./requirements.yml"
 PLAYBOOK	?= main.yml

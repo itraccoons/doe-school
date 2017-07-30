@@ -1,5 +1,5 @@
 ---
-- include: common/ntp.yml
+- include: common/presets.yml
 
 - hosts: servers
   gather_facts: "yes"
