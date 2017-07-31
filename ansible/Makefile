@@ -1,14 +1,14 @@
 ###############################################################################
 
-BASE_DIR	:= $(shell cd .. && pwd)
+BASE_DIR	:= $(shell pwd)
 YL_CMD		:= $(shell which yamllint)
-YL_FILES	:= ./*.yml ./common/
+YL_FILES	:= ./*.yml
 #AP_CMD		:= ANSIBLE_HOST_KEY_CHECKING=False
 AP_CMD		+= $(shell which ansible-playbook)
 AG_CMD		:= $(shell which ansible-galaxy)
-INVENTORY	:= ${BASE_DIR}/config/inventory
-ROLES_DIR	:= ./roles
-ROLES		:= ./requirements.yml
+INVENTORY	?= ${BASE_DIR}/staging
+ROLES_DIR	:= ${BASE_DIR}/roles
+ROLES		:= ${BASE_DIR}/requirements.yml
 PLAYBOOK	?= main.yml
 
 RED		= \033[0;31m	# Red color 
@@ -49,8 +49,8 @@ show-groups:		# Show ansible inventory
 	@ grep -E '^\[' ${INVENTORY} | grep -v ':'
 
 ssh-keygen:
-	ssh-keygen -b 4029 -f ${BASE_DIR}/config/id_rsa
+	ssh-keygen -b 4029 -f ${BASE_DIR}/.keys/id_rsa
 
 ssh-copy-id:
 	# this is a stub, need to write proc: 1. walkthrough inventory 2. push pub key to host
-	ssh-copy-id -i ${BASE_DIR}/config/id_rsa.pub centos@10.0.1.5
+	ssh-copy-id -i ${BASE_DIR}/.keys/id_rsa.pub centos@10.0.1.5
