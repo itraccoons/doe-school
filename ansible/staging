@@ -3,12 +3,10 @@ localhost		ansible_connection=local
 vm2.centos.vbox		ansible_host=10.0.1.5
 
 
-
-[servers]
+[staging-servers]
 #vm[1:2].centos.vbox
 vm2.centos.vbox
 
-
-[servers:vars]
+[staging-servers:vars]
 ansible_connection=ssh
 ansible_user=centos
