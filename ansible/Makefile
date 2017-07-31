@@ -2,7 +2,7 @@
 
 BASE_DIR	:= $(shell pwd)
 YL_CMD		:= $(shell which yamllint)
-YL_FILES	:= ./*.yml
+YL_FILES	:= ${BASE_DIR}/*.yml
 #AP_CMD		:= ANSIBLE_HOST_KEY_CHECKING=False
 AP_CMD		+= $(shell which ansible-playbook)
 AG_CMD		:= $(shell which ansible-galaxy)
@@ -41,6 +41,7 @@ dry-run: validate	# Simulation. Check Mode
 
 play:  validate		# Let's play but validate before
 	$(AP_CMD) -i ${INVENTORY} ${PLAYBOOK}
+
 
 show-hosts:		# Show ansible inventory
 	@ grep -E '^[^#].*ansible_host' ${INVENTORY}

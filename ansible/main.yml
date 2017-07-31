@@ -1,7 +1,7 @@
 ---
-#- include: library/presets.yml
+# - include: library/presets.yml
 
-- hosts: localhost
+- hosts: staging-servers
   gather_facts: "yes"
 
   tasks:
