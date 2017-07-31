@@ -1,0 +1,4 @@
+---
+ansible_connection: ssh
+ansible_user: centos
+ansible_become_pass: reverse

@@ -1,6 +1,6 @@
 ---
 - hosts: staging-servers
+  become: true
   pre_tasks:
     - name: Setup host name from inventory
       hostname: name={{ inventory_hostname }}
-      become: true

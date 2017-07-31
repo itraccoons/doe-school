@@ -9,7 +9,7 @@ AG_CMD		:= $(shell which ansible-galaxy)
 INVENTORY	?= ${BASE_DIR}/staging
 ROLES_DIR	:= ${BASE_DIR}/roles
 ROLES		:= ${BASE_DIR}/requirements.yml
-PLAYBOOK	?= main.yml
+PLAYBOOK	?= site.yml
 
 RED		= \033[0;31m	# Red color 
 NC		= \033[0m	# No Color

@@ -7,7 +7,7 @@ vm2.centos.vbox		ansible_host=10.0.1.5
 #vm[1:2].centos.vbox
 vm2.centos.vbox
 
-[staging-servers:vars]
-ansible_connection=ssh
-ansible_user=centos
-ansible_become_pass=reverse
+#[staging-servers:vars]
+#ansible_connection=ssh
+#ansible_user=centos
+#ansible_become_pass=reverse
