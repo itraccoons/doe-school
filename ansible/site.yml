@@ -4,10 +4,14 @@
 - hosts: staging-servers
   gather_facts: "yes"
 
+  roles:
+    - geerlingguy.ntp
+    - geerlingguy.apache
+
   tasks:
     - name: Send message to Slack
       slack:
         token: T67ELM0P4/B6F8UFQ5C/Ur8k3wUYQ1rVntbRiB0p0Xm5
         channel: github-itraccoons
-        msg: '{{ inventory_hostname }} notify from Ansible'
+        msg: '{{ inventory_hostname }} provisioned with Ansible'
       delegate_to: localhost
