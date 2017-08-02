@@ -1,0 +1,52 @@
+---
+- hosts: localhost
+  vars:
+    project_name: raccoon1.doe.com
+    www_data_dir: /srv/www
+    git_provider: https://github.com
+    git_account: itraccoons
+    slack_token: T67ELM0P4/B6F8UFQ5C/Ur8k3wUYQ1rVntbRiB0p0Xm5
+    slack_channel: github-itraccoons
+
+  pre_tasks:
+    - name: Setup host name from inventory
+      hostname: name="{{ project_name }}"
+
+  roles:
+    - role: geerlingguy.ntp
+    - role: geerlingguy.git
+    - role: geerlingguy.apache
+      apache_vhosts:
+        - servername: "{{ project_name }}"
+          documentroot: "{{ www_data_dir }}/{{ project_name }}"
+      apache_remove_default_vhost: true
+
+  tasks:
+    - name: Create WWW-DATA directory "{{ www_data_dir }}"
+      file:
+        path: "{{www_data_dir}}"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: 0775
+
+    - name: Clone git repository "{{ git_provider }}/{{ git_account }}/{{ project_name }}.git"
+      git: >
+        dest="{{ www_data_dir }}/{{ project_name }}"
+        repo="{{ git_provider }}/{{ git_account }}/{{ project_name }}.git"
+        update=no
+      become: yes
+      become_user: www-data
+      notify:
+        - restart apache
+
+    - name: Send message to Slack channel "{{ slack_channel }}"
+      slack:
+        token: "{{ slack_token }}"
+        channel: "{{ slack_channel }}"
+        msg: "http://{{ project_name }}:8080/ deployed with Ansible"
+      delegate_to: localhost
+
+  handlers:
+    - name: restart apache
+      service: name=apache state=restarted
