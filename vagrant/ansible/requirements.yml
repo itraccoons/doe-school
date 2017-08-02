@@ -1,2 +1,3 @@
 - src: geerlingguy.ntp
 - src: geerlingguy.apache
+- src: geerlingguy.git

@@ -1,6 +1,6 @@
 *.ova
 *.retry
 .vagrant/
-vagrant/ansible/roles/
+roles/
 .keys/
 id_rsa*
