@@ -9,7 +9,7 @@
     slack_channel: github-itraccoons
 
   pre_tasks:
-    - name: Setup host name from inventory
+    - name: Setup host name "{{ project_name }}"
       hostname: name="{{ project_name }}"
 
   roles:

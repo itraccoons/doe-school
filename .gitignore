@@ -1,6 +1,0 @@
-*.ova
-*.retry
-.vagrant/
-roles/
-.keys/
-id_rsa*
