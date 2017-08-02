@@ -5,7 +5,7 @@
     www_data_dir: /srv/www
     git_provider: https://github.com
     git_account: itraccoons
-    slack_token: T67ELM0P4/B6F8UFQ5C/Ur8k3wUYQ1rVntbRiB0p0Xm5
+    slack_token: "{{ lookup('file', './.token') }}"
     slack_channel: github-itraccoons
 
   pre_tasks:
@@ -31,10 +31,10 @@
         mode: 0775
 
     - name: Clone git repository "{{ git_provider }}/{{ git_account }}/{{ project_name }}.git"
-      git: >
-        dest="{{ www_data_dir }}/{{ project_name }}"
-        repo="{{ git_provider }}/{{ git_account }}/{{ project_name }}.git"
-        update=no
+      git:
+        dest: "{{ www_data_dir }}/{{ project_name }}"
+        repo: "{{ git_provider }}/{{ git_account }}/{{ project_name }}.git"
+        update: no
       become: yes
       become_user: www-data
       notify:
