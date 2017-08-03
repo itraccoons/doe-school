@@ -1,0 +1,7 @@
+---
+project_name: raccoon1.doe.com
+www_data_dir: /srv/www
+git_provider: https://github.com
+git_account: itraccoons
+slack_token: "{{ lookup('file', './.token') }}"
+slack_channel: github-itraccoons
