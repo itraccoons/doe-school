@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
-  vars_files:
-    - "./inventories/staging/host_vars/all.yml"
+#  vars_files:
+#    - "./inventories/{{ env }}/host_vars/all.yml"
 
   pre_tasks:
     - name: Setup host name "{{ project_name }}"

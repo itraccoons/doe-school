@@ -4,7 +4,8 @@
 VAGRANT_API_VERSION = '2'
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.define "openstack" do |_|
-    _.vm.box = "ubuntu/trusty64"
+#    _.vm.box = "ubuntu/trusty64"
+    _.vm.box = "centos/7"
     _.vm.network :forwarded_port, guest: 80, host: 8080
     _.vm.provider "virtualbox" do |__|
       __.memory = "512"

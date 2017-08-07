@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
     _.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "./site.yml"
-      ansible.galaxy_roles_path = "./roles/:../"
+      ansible.galaxy_roles_path = "./roles/"
       ansible.inventory_path = "./inventories/staging/hosts"
       ansible.galaxy_role_file = "./requirements.yml"
       ansible.limit = "all"
