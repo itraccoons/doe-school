@@ -2,8 +2,15 @@ concurrent = 1
 check_interval = 0
 
 [[runners]]
-  name = "runner-shell"
+  name = "drun"
   url = "https://gitlab.com"
-  token = "9d59d51f3e7fc49f93f40fce00833d"
-  executor = "shell"
+  token = "bcf813f012acf7aa26e24bd20c91c9"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "docker:latest"
+    privileged = false
+    disable_cache = false
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    shm_size = 0
   [runners.cache]

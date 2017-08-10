@@ -5,20 +5,23 @@ VAGRANT_API_VERSION = '2'
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.define "gitlab-runner.vbox" do |_|
     _.vm.box = "ubuntu/trusty64"
-#    _.vm.network :forwarded_port, guest: 80, host: 8080
+#    _.vm.box = "CentOS/7"
+    _.vm.network :forwarded_port, guest: 80, host: 8080
     _.vm.provider "virtualbox" do |__|
       __.name = "gitlab-runner.docker.vagrant.vbox"
-      __.memory = "512"
+      __.memory = "1024"
       __.cpus = "1"
     end
 
     _.vm.provision "docker" do |d|
       d.run "gitlab-runner.container", 
         image: "gitlab/gitlab-runner:latest",
-        args: "-v '/vagrant/gitlab-runner:/etc/gitlab-runner'"
-#after conteiner start run 
-#docker exec gitlab-runner.container gitlab-runner register --non-interactive --url https://gitlab.com --registration-token <TOKEN> --executor \"shell\" --name \"runner-shell\" --tag-list \"DEPLOY\""
+        args: "-v '/vagrant/gitlab-runner:/etc/gitlab-runner' -v '/var/run/docker.sock:/var/run/docker.sock'"
     end
   end
 end
- 
+
+
+#after conteiner start run 
+#docker exec gitlab-runner.container gitlab-runner register --non-interactive --url https://gitlab.com --registration-token <TOKEN> --executor \"shell\" --name \"runner-shell\" --tag-list \"DEPLOY\""
+#docker exec gitlab-runner.container gitlab-runner register --non-interactive --url https://gitlab.com --registration-token Jsgz5Xht9Pg-6UsyRT5H --executor docker --name drun --docker-image docker:latest --docker-volumes /var/run/docker.sock:/var/run/docker.sock --tag-list DOCKER 
