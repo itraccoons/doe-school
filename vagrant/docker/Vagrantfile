@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     _.vm.network :forwarded_port, guest: 80, host: 8080
     _.vm.network :forwarded_port, guest: 81, host: 8081
     _.vm.network :forwarded_port, guest: 82, host: 8082
+    _.vm.network :forwarded_port, guest: 9000, host: 9000
     _.vm.provider "virtualbox" do |__|
       __.name = "gitlab-runner.docker.vagrant.vbox"
       __.memory = "1024"
@@ -20,10 +21,11 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
         image: "gitlab/gitlab-runner:latest",
         args: "-v '/vagrant/gitlab-runner:/etc/gitlab-runner' -v '/var/run/docker.sock:/var/run/docker.sock'"
 
-      d.run "grafana.container",
-        image: "grafana/grafana",
-        args: "-p 3000:3000 -v '/var/lib/grafana:/var/lib/grafana' -e 'GF_SECURITY_ADMIN_PASSWORD=secret'"
+      d.run "portainer.container",
+        image: "portainer/portainer",
+        args: "-p 9000:9000 -v '/var/run/docker.sock:/var/run/docker.sock'"
     end
+
   end
 end
 
