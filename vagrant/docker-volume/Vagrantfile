@@ -20,11 +20,15 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       d.run "myapp-nginx", image: "myapp:v0.1", args: "-p 80:80"
       d.run "myapp-nginx2", image: "myapp:v0.1", args: "-p 81:80 -v /vagrant/myapp/www2/doe:/usr/share/nginx/html"
       d.run "myapp-nginx3", image: "nginx:alpine", args: "-p 82:80 --volumes-from myapp-nginx"
+    end
 
+    _.vm.provision "shell", inline:"docker create --name datacontainer myapp2:v0.1"
+
+    _.vm.provision "docker" do |d| 
       d.build_image "/vagrant/myapp2", args: "-t myapp2:v0.1"
-#      d.post_install_provision "shell", inline:"docker create --name datacontainer myapp2:v0.1"
       d.run "myapp2-nginx4", image: "nginx:alpine", args: "-p 83:80 --volumes-from datacontainer"
     end
+
 
   end
 end
