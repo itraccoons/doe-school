@@ -1,16 +1,10 @@
-$docker_stack=<<SCRIPT
-    docker swarm init
-    docker stack deploy -c /vagrant/docker-compose.yml raccoon1
-SCRIPT
-
-
 VAGRANT_API_VERSION = '2'
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.define "node2.docker.vbox" do |_|
     _.vm.box = "ubuntu/trusty64"
     _.vm.network :forwarded_port, guest: 80, host: 8080
     _.vm.provider "virtualbox" do |__|
-      __.name = "docker-node2.raccoons.co"
+      __.name = "docker-compose.raccoons.co"
       __.memory = "1024"
       __.cpus = "1"
     end
@@ -20,7 +14,10 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       d.build_image "/vagrant/myapp", args: "-t myapp:v0.1"
     end
 
-    _.vm.provision "shell", inline: $docker_stack
+    _.vm.provision "shell", inline: <<SHELL_CODE_BLOCK
+      docker swarm init
+      docker stack deploy -c /vagrant/docker-compose.yml raccoon1
+SHELL_CODE_BLOCK
 
   end
 end
