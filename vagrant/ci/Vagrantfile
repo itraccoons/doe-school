@@ -1,0 +1,25 @@
+VAGRANT_API_VERSION = '2'
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.vm.define "ci.docker.vbox" do |_|
+    _.vm.box = "ubuntu/trusty64"
+    _.vm.network :forwarded_port, guest: 9000, host: 9000
+    _.vm.network :forwarded_port, guest: 8080, host: 8080
+    _.vm.network :forwarded_port, guest: 8153, host: 8153
+    _.vm.network :forwarded_port, guest: 8111, host: 8111
+    _.vm.provider "virtualbox" do |__|
+      __.name = "ci.raccoons.co"
+      __.memory = "2048"
+      __.cpus = "1"
+    end
+
+    _.vm.provision "docker" do |d|
+      d.run "portainer", image: "portainer/portainer", args: "-p 9000:9000 -v '/var/run/docker.sock:/var/run/docker.sock'"
+    end
+
+    _.vm.provision "ci", type: "docker" do |ci|
+      ci.run "jenkins", image: "jenkins:alpine", args: "-p 8080:8080 -p 50000:50000"
+      ci.run "teamcity", image: "jetbrains/teamcity-server", args: "-p 8111:8111"
+#      ci.run "go", image: "gocd/gocd-server:v17.8.0", args: "-p 8153:8153 -p 8154:8154"
+    end
+  end
+end
