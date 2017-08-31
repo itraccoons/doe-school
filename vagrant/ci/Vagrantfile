@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     _.vm.provision "ci", type: "docker" do |ci|
       ci.run "jenkins", image: "jenkins:alpine", args: "-p 8080:8080 -p 50000:50000"
       ci.run "teamcity", image: "jetbrains/teamcity-server", args: "-p 8111:8111"
-      ci.run "go", image: "gocd/gocd-server:v17.8.0", args: "-p 8153:8153 -p 8154:8154"
+      ci.run "gocd", image: "gocd/gocd-server:v17.8.0", args: "-p 8153:8153 -p 8154:8154"
     end
   end
 end
