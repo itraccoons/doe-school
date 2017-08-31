@@ -6,6 +6,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     _.vm.network :forwarded_port, guest: 8080, host: 8080
     _.vm.network :forwarded_port, guest: 8153, host: 8153
     _.vm.network :forwarded_port, guest: 8111, host: 8111
+    _.vm.network :forwarded_port, guest: 8000, host: 8000
     _.vm.provider "virtualbox" do |__|
       __.name = "ci.raccoons.co"
       __.memory = "2048"
@@ -19,7 +20,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     _.vm.provision "ci", type: "docker" do |ci|
       ci.run "jenkins", image: "jenkins:alpine", args: "-p 8080:8080 -p 50000:50000"
       ci.run "teamcity", image: "jetbrains/teamcity-server", args: "-p 8111:8111"
-      ci.run "gocd", image: "gocd/gocd-server:v17.8.0", args: "-p 8153:8153 -p 8154:8154"
+      ci.run "go", image: "gocd/gocd-server:v17.8.0", args: "-p 8153:8153 -p 8154:8154"
     end
   end
 end
