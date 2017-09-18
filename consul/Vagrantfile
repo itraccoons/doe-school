@@ -1,0 +1,24 @@
+VAGRANT_API_VERSION = '2'
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+  config.vm.define "consul.docker.vbox" do |_|
+    _.vm.box = "ubuntu/trusty64"
+    _.vm.network :forwarded_port, guest: 9000, host: 9000
+    _.vm.network :forwarded_port, guest: 8400, host: 8400
+    _.vm.network :forwarded_port, guest: 8500, host: 8500
+    _.vm.network :forwarded_port, guest: 8600, host: 8600
+    _.vm.provider "virtualbox" do |__|
+      __.name = "consul.raccoons.co"
+      __.memory = "1024"
+      __.cpus = "1"
+    end
+
+    _.vm.provision "docker" do |d| 
+      d.run "portainer", image: "portainer/portainer", args: "-p 9000:9000 -v '/var/run/docker.sock:/var/run/docker.sock'"
+
+      d.run "consul", image: "consul:latest", args: "-p 8500:8500 -p 8400:8400 -p 8600:8600"
+      d.run "registrator", image: "gliderlabs/registrator:latest consul://172.17.0.3:8500", args: "-v '/var/run/docker.sock:/tmp/docker.sock'"
+    end
+
+
+  end
+end
