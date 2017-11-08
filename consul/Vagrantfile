@@ -15,8 +15,9 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     _.vm.provision "docker" do |d| 
       d.run "portainer", image: "portainer/portainer", args: "-p 9000:9000 -v '/var/run/docker.sock:/var/run/docker.sock'"
 
-      d.run "consul", image: "consul:latest", args: "-p 8500:8500 -p 8400:8400 -p 8600:8600"
+      d.run "consul", image: "consul:latest", args: "-p 8500:8500 -p 8400:8400 -p 8600:8600 -p 8301:8301"
       d.run "registrator", image: "gliderlabs/registrator:latest consul://172.17.0.3:8500", args: "-v '/var/run/docker.sock:/tmp/docker.sock'"
+      d.run "consul-n2", image: "consul:latest agent -dev -join=172.17.0.3 -bind=0.0.0.0"
     end
 
 

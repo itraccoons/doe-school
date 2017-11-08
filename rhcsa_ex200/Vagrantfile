@@ -3,17 +3,13 @@
 
 VAGRANT_API_VERSION = '2'
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
-  config.vm.define "director" do |_|
-#    _.vm.box = "ubuntu/xenial64"
+  config.vm.define "web" do |_|
     _.vm.box = "centos/7"
-    _.vm.network "private_network", ip: "172.25.250.2"
     _.vm.network :forwarded_port, guest: 80, host: 8080
     _.vm.provider "virtualbox" do |__|
-      __.memory = "8192"
+      __.memory = "1024"
       __.cpus = "1"
     end
-
-    _.vm.provision "undercloud", type: "shell", path: "openstack-undercloud-install.sh"
   end
 end
  
