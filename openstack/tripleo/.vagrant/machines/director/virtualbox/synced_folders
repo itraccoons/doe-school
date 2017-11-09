@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/Users/raccoon1/projects/doe-school/vagrant/openstack","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}
